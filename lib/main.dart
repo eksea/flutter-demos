@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'demos/canvas.dart';
+import 'demos/lakes.dart';
 
-void main() => runApp(Demos());
+void main() {
+  debugPaintSizeEnabled = true;
+  runApp(Demos());
+}
 
 class Demos extends StatelessWidget {
   final appTitle = 'Flutter Demos';
@@ -53,6 +58,13 @@ class DemosHomePage extends StatelessWidget {
               title: Text('Item 2'),
               onTap: () {
                 Navigator.pop(context);
+                Navigator.of(context).push(
+                  new MaterialPageRoute(
+                    builder: (context) {
+                      return new MyApp();
+                    }
+                  )
+                );
               },
             ),
           ],
