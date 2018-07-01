@@ -4,7 +4,7 @@ import 'demos/canvas.dart';
 import 'demos/lakes.dart';
 
 void main() {
-  debugPaintSizeEnabled = true;
+  // debugPaintSizeEnabled = true;
   runApp(Demos());
 }
 
@@ -55,13 +55,13 @@ class DemosHomePage extends StatelessWidget {
               },
             ),
             ListTile(
-              title: Text('Item 2'),
+              title: Text('Lake'),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.of(context).push(
                   new MaterialPageRoute(
                     builder: (context) {
-                      return new MyApp();
+                      return new Lake();
                     }
                   )
                 );

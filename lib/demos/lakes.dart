@@ -3,15 +3,8 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
-// Uncomment lines 7 and 10 to view the visual layout at runtime.
-//import 'package:flutter/rendering.dart' show debugPaintSizeEnabled;
 
-// void main() {
-  //debugPaintSizeEnabled = true;
-  // runApp(new MyApp());
-// }
-
-class MyApp extends StatelessWidget {
+class Lake extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget titleSection = new Container(
@@ -110,7 +103,6 @@ Lake Oeschinen lies at the foot of the Blüemlisalp in the Bernese Alps. Situate
             textSection,
           ],
         ),
-      ),
     );
   }
 }
