@@ -14,6 +14,12 @@ class DemosCanvasState extends State<DemosCanvas> {
     });
   }
 
+  void updatePoints(List<Offset> ps) {
+    setState(() {
+      points = ps;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -27,7 +33,9 @@ class DemosCanvasState extends State<DemosCanvas> {
         children: <Widget>[
           new Expanded(
             child: new Container(
-              child: Signature(points: points),
+              child: Signature(
+                points: points,
+                onPointsUpdate: updatePoints,),
               decoration: new BoxDecoration(
                 border: new Border.all(width: 4.0, color: Colors.blue),
               ),
@@ -76,9 +84,10 @@ class ButtonSection extends StatelessWidget {
 }
 
 class Signature extends StatefulWidget {
-  List<Offset> points = <Offset>[];
+  final List<Offset> points;
+  final void Function(List<Offset>) onPointsUpdate;
 
-  Signature({Key key, this.points}) : super(key: key);
+  Signature({Key key, this.points: const <Offset>[], @required this.onPointsUpdate}) : super(key: key);
 
   SignatureState createState() => new SignatureState();
 }
@@ -91,7 +100,7 @@ class SignatureState extends State<Signature> {
         setState(() {
           RenderBox referenceBox = context.findRenderObject();
           Offset localPosition = referenceBox.globalToLocal(details.globalPosition);
-          widget.points = new List.from(widget.points)..add(localPosition);
+          widget.onPointsUpdate(new List.from(widget.points)..add(localPosition));
         });
       },
       onPanEnd: (DragEndDetails details) => widget.points.add(null),
