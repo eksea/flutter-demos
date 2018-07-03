@@ -1,6 +1,19 @@
 import 'package:flutter/material.dart';
 
-class DemosCanvas extends StatelessWidget {
+class DemosCanvas extends StatefulWidget {
+  @override
+  DemosCanvasState createState() => new DemosCanvasState();
+}
+
+class DemosCanvasState extends State<DemosCanvas> {
+  List<Offset> points = <Offset>[];
+
+  void refurbishPainter() {
+    setState(() {
+      points.clear();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -14,13 +27,13 @@ class DemosCanvas extends StatelessWidget {
         children: <Widget>[
           new Expanded(
             child: new Container(
-              child: new Signature(),
+              child: Signature(points: points),
               decoration: new BoxDecoration(
                 border: new Border.all(width: 4.0, color: Colors.blue),
               ),
             ),
           ),
-          new ButtonSection(),
+          new ButtonSection(onRefurbish: refurbishPainter),
         ],
       ),
     );
@@ -28,6 +41,10 @@ class DemosCanvas extends StatelessWidget {
 }
 
 class ButtonSection extends StatelessWidget {
+  final void Function() onRefurbish;
+
+  ButtonSection({Key key, @required this.onRefurbish}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return new Row(
@@ -37,7 +54,9 @@ class ButtonSection extends StatelessWidget {
           child: new Text('Refurbish'),
           textColor: Colors.white,
           color: Colors.blue,
-          onPressed: () {},
+          onPressed: () {
+            onRefurbish();
+          },
         ),
         new FlatButton(
           child: new Text('None'),
@@ -57,24 +76,28 @@ class ButtonSection extends StatelessWidget {
 }
 
 class Signature extends StatefulWidget {
+  List<Offset> points = <Offset>[];
+
+  Signature({Key key, this.points}) : super(key: key);
+
   SignatureState createState() => new SignatureState();
 }
 
 class SignatureState extends State<Signature> {
-  List<Offset> _points = <Offset>[];
+  // List<Offset> _points = <Offset>[];
   Widget build(BuildContext context) {
     return new GestureDetector(
       onPanUpdate: (DragUpdateDetails details) {
         setState(() {
           RenderBox referenceBox = context.findRenderObject();
           Offset localPosition = referenceBox.globalToLocal(details.globalPosition);
-          _points = new List.from(_points)..add(localPosition);
+          widget.points = new List.from(widget.points)..add(localPosition);
         });
       },
-      onPanEnd: (DragEndDetails details) => _points.add(null),
+      onPanEnd: (DragEndDetails details) => widget.points.add(null),
       child: 
         new CustomPaint(
-          painter: new SignaturePainter(_points),
+          painter: new SignaturePainter(widget.points),
           size: Size.infinite,  
           // size: new Size(10.00, 10.00)
         )
