@@ -1,8 +1,5 @@
-# demos
+# 申明
 
-A new Flutter project.
+部分demo来自网络教程或者是在其基础上进行修改的，若原作者需要对其进行说明，欢迎提issue
 
-## Getting Started
 
-For help getting started with Flutter, view our online
-[documentation](https://flutter.io/).
