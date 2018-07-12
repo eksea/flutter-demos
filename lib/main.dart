@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'demos/canvas.dart';
 import 'demos/lakes.dart';
 import 'home.dart';
+import 'login.dart';
 
 void main() {
   // debugPaintSizeEnabled = true;
@@ -17,7 +18,7 @@ class Demos extends StatelessWidget {
     return MaterialApp(
       title: appTitle,
       debugShowCheckedModeBanner: false,
-      home: DemosHomePage(title: appTitle),
+      home: LoginPage(),
     );
   }
 }
